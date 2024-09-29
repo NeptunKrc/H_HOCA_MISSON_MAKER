@@ -1,0 +1,11 @@
+HTMLleri indir ve proje ile aynı dosyaya at 
+deprem verileri ve 2007 hadiseleri halihazırda projenin içinde
+
+önce install.py programını çalıştır
+ardından main.py ile ödevi hızlıca bitirebilirsin
+Girdi girerken dikkatli ol her girdiye farklı  bir şeyler yaz
+database yolunun başında ve sonunda tırnak işareti vb. bir şey OLMASIN!!!
+
+Programın yönlendirmelerini dikkatlice okursan her şey çok kolay ve hızlı olurz
+
+v1.0 Neptün
