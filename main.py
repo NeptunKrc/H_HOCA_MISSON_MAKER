@@ -1,8 +1,10 @@
 from bs4 import BeautifulSoup
 import pyodbc
-a = 1
+import numpy
 
-print("""            Hasan hoca Accsses database ödev yapıcıya hoş geldin 
+    
+def WellcomeMasage():
+    print("""            Hasan hoca Accsses database ödev yapıcıya hoş geldin 
                 Bu program html ve txt dosyasındaki Zarar veren hadiseler
                 ve depremleri otomatik bir şekilde accsses veritabanına aktarır
 
@@ -11,14 +13,8 @@ print("""            Hasan hoca Accsses database ödev yapıcıya hoş geldin
       
                 2024 Neptün Kırçiçek  V1.0""")
 
-Data_BasePath =  input("Başlamak için lütfen veritabanı dosya yolunu gir    : ")
 
-
-    
-    
-
-
-def secfonc(fileName, tableName, column1, column2, column3, column4, column5):
+def HarmfullEventHandler(fileName, tableName, column1, column2, column3, column4, column5):
 
         
     conn_str = (f'DRIVER={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={Data_BasePath};')
@@ -53,7 +49,7 @@ def secfonc(fileName, tableName, column1, column2, column3, column4, column5):
 
         cursor.commit()
     
-def thrfonc(fileName, tableName,columnID, column1, column2, column3, column4, column5, column6, column7,column8,column9,column10):
+def EarthquakeEventHandler(fileName, tableName,columnID, column1, column2, column3, column4, column5, column6, column7,column8,column9,column10):
     conn_str = (f'DRIVER={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={Data_BasePath};')
     conn = pyodbc.connect(conn_str)
     cursor = conn.cursor()
@@ -89,7 +85,8 @@ def thrfonc(fileName, tableName,columnID, column1, column2, column3, column4, co
         cursor.execute(f"INSERT INTO {tableName} ({columnID},{column1},{column2},{column3},{column4},{column5}, {column6}, {column7}, {column8}, {column9},{column10}) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                     (i,list_Date[i], list_Clock[i], list_Lat[i], list_Long[i], list_Depth[i], list_MD[i], list_ML[i], list_MW[i], list_Loc[i],list_Solve[i]))
     cursor.commit()
-def mainfonc(dataBasePath):
+
+def Main(dataBasePath):
 
     conn_str = (f'DRIVER={{Microsoft Access Driver (*.mdb, *.accdb)}};DBQ={dataBasePath};')
     conn = pyodbc.connect(conn_str)
@@ -126,7 +123,7 @@ def mainfonc(dataBasePath):
             
                 file_name = input("Bu program ile aynı dizinde olan html dosyasının ismini uzantısı ile beraber yaz :")
 
-                secfonc(file_name,new_table_name,new_table_no,new_table_date,new_table_location,new_table_event,new_table_damage)
+                HarmfullEventHandler(file_name,new_table_name,new_table_no,new_table_date,new_table_location,new_table_event,new_table_damage)
                 print("Tamamdır")
             elif auto_insert_question == "N":
                 print("Tek tek yazmaya başlasan iyi edersin o zaman")
@@ -141,7 +138,7 @@ def mainfonc(dataBasePath):
             column_event = input("Olay alanının ismini gir  :")
             column_damage = input("Zarar alanının ismini gir  :")
 
-            secfonc(file_name,table_name,column_no,column_date,column_loc,column_event,column_damage)
+            HarmfullEventHandler(file_name,table_name,column_no,column_date,column_loc,column_event,column_damage)
 
         else:
             print("Sorulara lütfen doğru bir şekilde cevap ver")
@@ -158,18 +155,18 @@ def mainfonc(dataBasePath):
 
         if new_table_question == "Y":
 
-            new_table_name = input("Yeni oluşturulacak tablonun ismini gir :")
-            new_table_date = input("Yeni tarih alanının ismi ne olsun ?")
+            new_table_name  = input("Yeni oluşturulacak tablonun ismini gir :")
+            new_table_date  = input("Yeni tarih alanının ismi ne olsun ?")
             new_table_clock = input("Yeni saat alanının ismi ne olsun ?")
-            new_table_lat = input("Yeni enlem alanının ismi ne olsun ?")
-            new_table_long = input("Yeni boylam alanının ismi ne olsun ?")
+            new_table_lat   = input("Yeni enlem alanının ismi ne olsun ?")
+            new_table_long  = input("Yeni boylam alanının ismi ne olsun ?")
             new_table_depth = input("Yeni derinlik alanının ismi ne olsun ?")
-            new_table_MD = input("Yeni MD alanının ismi ne olsun ?")
-            new_table_ML = input("Yeni ML alanının ismi ne olsun ?")
-            new_table_MW = input("Yeni MW alanının ismi ne olsun ?")
-            new_table_loc =input("Yeni Yer alanının ismi ne olsun ?")
+            new_table_MD    = input("Yeni MD alanının ismi ne olsun ?")
+            new_table_ML    = input("Yeni ML alanının ismi ne olsun ?")
+            new_table_MW    = input("Yeni MW alanının ismi ne olsun ?")
+            new_table_loc   = input("Yeni Yer alanının ismi ne olsun ?")
             new_table_solve = input("Yeni  Çözüm niteliği alanının ismi ne olsun ?")
-
+            
             cursor.execute(f'create table {new_table_name} (ID Number,{new_table_date} Text,{new_table_clock} Text,{new_table_lat} Text,{new_table_long} Text,{new_table_depth} Text,{new_table_MD} Text,{new_table_ML} Text,{new_table_MW} Text,{new_table_loc} Text, {new_table_solve} Text)')
             cursor.commit()
 
@@ -180,7 +177,7 @@ def mainfonc(dataBasePath):
             
                 file_name = input("Bu program ile aynı dizinde olan txt dosyasının ismini uzantısı ile beraber yaz :")
 
-                thrfonc(file_name,new_table_name,"ID",new_table_date,new_table_clock,new_table_lat,new_table_long,new_table_depth,new_table_MD,new_table_ML,new_table_MW,new_table_loc,new_table_solve)
+                EarthquakeEventHandler(file_name,new_table_name,"ID",new_table_date,new_table_clock,new_table_lat,new_table_long,new_table_depth,new_table_MD,new_table_ML,new_table_MW,new_table_loc,new_table_solve)
                 print("Tamamdır")
             elif auto_insert_question == "N":
                 print("Tek tek yazmaya başlasan iyi edersin o zaman")
@@ -189,12 +186,8 @@ def mainfonc(dataBasePath):
 
 
 
-mainfonc(Data_BasePath)   
 
 
-
-
-
-
-
-
+WellcomeMasage()
+Data_BasePath =  input("Başlamak için lütfen veritabanı dosya yolunu gir    : ")
+Main(Data_BasePath)   
